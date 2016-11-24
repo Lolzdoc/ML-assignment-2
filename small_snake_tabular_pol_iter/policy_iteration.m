@@ -67,7 +67,7 @@ while 1
         for state_idx = 1 : nbr_states
             current_state = state_idx;
             sum = 0;
-            for action = 1:3
+            for action = 1:nbr_actions
                 if (action == policy(current_state))
                     pol = 1;
                 else
@@ -94,6 +94,7 @@ while 1
         
         % Check for policy evaluation termination
         if Delta < pol_eval_tol
+            %disp(['Last Delta: ', num2str(Delta)])
             break;
         else
             disp(['Delta: ', num2str(Delta)])
@@ -105,11 +106,10 @@ while 1
     for state_idx = 1 : nbr_states
         % FILL IN POLICY IMPROVEMENT WITHIN THIS LOOP
         current_state = state_idx;
-        policy(current_state);
         current_max = 0;
-        current_action = 0;
+        current_action = policy(current_state);
         
-        for action = 1:3
+        for action = 1:nbr_actions
             sum = 0;
             next_state = next_state_idxs(current_state,action);
             if(next_state == 0)
@@ -125,6 +125,7 @@ while 1
             end
         end
         if (policy(current_state) ~= current_action)
+            %disp(['current_state policy: ', num2str(policy(current_state)),'new policy', num2str(current_action)])
             policy_stable = false;
         end
         policy(current_state) = current_action;
