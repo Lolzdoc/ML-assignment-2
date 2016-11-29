@@ -1,0 +1,64 @@
+% SETTINGS - SEE EXERCISE 7)
+nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
+rewards            = struct('default', 0, 'apple', 1, 'death', -1); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+gamm               = 0.9;                                           % Discount factor in Q-learning
+alph               = 0.01;                                           % Learning rate in Q-learning
+eps                = 0.01;                                           % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
+alph_update_iter   = 0;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+alph_update_factor = 0.5;                                           % At alpha update: new alpha = old alpha * alph_update_factor
+eps_update_iter    = 0;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+eps_update_factor  = 0.5;                                           % At eps update: new eps = old eps * eps_update_factor
+Q_vals             = randn(nbr_states, nbr_actions);                % Initialize Q-values randomly 
+
+
+
+nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
+rewards            = struct('default', -1, 'apple', 1000, 'death', -100); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+gamm               = 0.9;                                           % Discount factor in Q-learning
+alph               = 0.9;                                           % Learning rate in Q-learning
+eps                = 0.5;                                           % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
+alph_update_iter   = 150;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+alph_update_factor = 0.5;                                           % At alpha update: new alpha = old alpha * alph_update_factor
+eps_update_iter    = 100;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+eps_update_factor  = 0.5;                                           % At eps update: new eps = old eps * eps_update_factor
+Q_vals             = randn(nbr_states, nbr_actions);                % Initialize Q-values randomly 
+
+
+nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
+rewards            = struct('default', -1, 'apple', 100, 'death', -100); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+gamm               = 0.95;                                           % Discount factor in Q-learning
+alph               = 0.95;                                           % Learning rate in Q-learning
+eps                = 0.45;                                           % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
+alph_update_iter   = 170;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+alph_update_factor = 0.45;                                           % At alpha update: new alpha = old alpha * alph_update_factor
+eps_update_iter    = 80;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+eps_update_factor  = 0.35;                                           % At eps update: new eps = old eps * eps_update_factor
+Q_vals             = randn(nbr_states, nbr_actions);                % Initialize Q-values randomly 
+
+% Stuff related to learning agent (YOU SHOULD EXPERIMENT A LOT WITH THESE
+% SETTINGS - SEE EXERCISE 7)
+nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
+rewards            = struct('default', -5, 'apple', 1000, 'death', -100); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+gamm               = 0.95;                                           % Discount factor in Q-learning
+alph               = 0.95;                                           % Learning rate in Q-learning
+eps                = 0.1;                                           % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
+alph_update_iter   = 300;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+alph_update_factor = 0.45;                                           % At alpha update: new alpha = old alpha * alph_update_factor
+eps_update_iter    = 25;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+eps_update_factor  = 0.2;                                           % At eps update: new eps = old eps * eps_update_factor
+Q_vals             = randn(nbr_states, nbr_actions);  
+
+
+
+% Stuff related to learning agent (YOU SHOULD EXPERIMENT A LOT WITH THESE
+% SETTINGS - SEE EXERCISE 7)
+nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
+rewards            = struct('default', -5, 'apple', 100, 'death', -100); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+gamm               = 0.9;                                           % Discount factor in Q-learning
+alph               = 0.2;                                           % Learning rate in Q-learning
+eps                = 0.01;                                           % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
+alph_update_iter   = 10;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+alph_update_factor = 0.99;                                           % At alpha update: new alpha = old alpha * alph_update_factor
+eps_update_iter    = 10;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+eps_update_factor  = 0.5;                                           % At eps update: new eps = old eps * eps_update_factor
+Q_vals             = randn(nbr_states, nbr_actions);  
