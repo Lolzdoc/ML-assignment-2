@@ -41,32 +41,32 @@ snake_len = 3;
 nbr_apples = 1;
 
 % Updates per second (when watching the agent play)
-updates_per_sec = 5;                   % Allowed to be changed
+updates_per_sec = 50000;                   % Allowed to be changed
 pause_time      = 1 / updates_per_sec; % DO NOT CHANGE
 
 % Set visualization settings (what you as programmer will see when the agent is playing)
-show_fraction  = 1;                        % Allowed to be changed. 1: show everything, 0: show nothing, 0.1: show every tenth, and so on...
+show_fraction  = 0;                        % Allowed to be changed. 1: show everything, 0: show nothing, 0.1: show every tenth, and so on...
 show_every_kth = round(1 / show_fraction); % DO NOT CHANGE
 
 % Stuff related to learning agent (YOU SHOULD EXPERIMENT A LOT WITH THESE
 % SETTINGS - SEE EXERCISE 7)
 nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
-rewards            = struct('default', 0, 'apple', 1, 'death', -1); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+rewards            = struct('default', -5, 'apple', 100, 'death', -100); % Experiment with different reward signals, to see which yield a good behaviour for the agent
 gamm               = 0.9;                                           % Discount factor in Q-learning
-alph               = 0.01;                                           % Learning rate in Q-learning
+alph               = 0.2;                                           % Learning rate in Q-learning
 eps                = 0.01;                                           % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
-alph_update_iter   = 0;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
-alph_update_factor = 0.5;                                           % At alpha update: new alpha = old alpha * alph_update_factor
-eps_update_iter    = 0;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+alph_update_iter   = 10;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+alph_update_factor = 0.99;                                           % At alpha update: new alpha = old alpha * alph_update_factor
+eps_update_iter    = 10;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
 eps_update_factor  = 0.5;                                           % At eps update: new eps = old eps * eps_update_factor
-Q_vals             = randn(nbr_states, nbr_actions);                % Initialize Q-values randomly 
+Q_vals             = randn(nbr_states, nbr_actions);  
 
 % Below two commands are useful when you have tranined your agent and later
 % want to test it (see also Exercise 7). Remember to set alph = eps = 0 in 
 % testing!
 
 % save('Q_vals.mat', 'Q_vals');
-% load Q_vals;             
+ %load 'temp.mat';             
 
 % Set up state representations
 try

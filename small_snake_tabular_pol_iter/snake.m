@@ -56,7 +56,7 @@ gamm = 0.95;
 pol_eval_tol = 1e0;
 
 % Updates per second (when watching the agent play)
-updates_per_sec = 10;                 % Allowed to be changed
+updates_per_sec = 5;                 % Allowed to be changed
 pause_time      = 1 / updates_per_sec; % DO NOT CHANGE
 
 % Set up state representations
