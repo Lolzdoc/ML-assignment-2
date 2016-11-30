@@ -38,33 +38,33 @@ snake_len_init = 10;
 nbr_apples = 1;
 
 % Updates per second
-updates_per_sec = 2000;                  % Allowed to be changed (though your code must handle 20 updates per second at the lowest)
+updates_per_sec = 20;                  % Allowed to be changed (though your code must handle 20 updates per second at the lowest)
 pause_time      = 1 / updates_per_sec; % DO NOT CHANGE
 
 % Set visualization settings (what you as programmer will see when the agent is playing)
-show_fraction  = 0;                        % Allowed to be changed. 1: show everything, 0: show nothing, 0.1: show every tenth, and so on...
+show_fraction  = 1;                        % Allowed to be changed. 1: show everything, 0: show nothing, 0.1: show every tenth, and so on...
 show_every_kth = round(1 / show_fraction); % DO NOT CHANGE
 
 % Stuff related to learning agent (YOU SHOULD EXPERIMENT A LOT WITH THESE
 % SETTINGS - SEE EXERCISE 8)
-nbr_feats          = 4;                                             % Number of state-action features per action
+nbr_feats          = 3;                                             % Number of state-action features per action
 nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
-rewards            = struct('default', -1, 'apple', 5, 'death', -5); % Experiment with different reward signals, to see which yield a good behaviour for the agent
-gamm               = 0.91;                                           % Discount factor in Q-learning
-alph               = 0.2;                                          % Learning rate in Q-learning
-eps                = 0.02;                                          % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
-alph_update_iter   = 10;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+rewards            = struct('default', 0, 'apple', 1, 'death', -1); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+gamm               = 0.9;                                           % Discount factor in Q-learning
+alph               = 0.0;                                          % Learning rate in Q-learning
+eps                = 0.0;                                          % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
+alph_update_iter   = 0;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
 alph_update_factor = 0.5;                                           % At alpha update: new alpha = old alpha * alph_update_factor
-eps_update_iter    = 10;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+eps_update_iter    = 0;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
 eps_update_factor  = 0.5;                                           % At eps update: new eps = old eps * eps_update_factor
-weights            = [2;-2;-1;1];                           % I.i.d. N(0,1) initial weights
+weights            = randn(nbr_feats, 1);                           % I.i.d. N(0,1) initial weights
 
 % Below two commands are useful when you have tranined your agent and later
 % want to test it (see also Exercise 8). Remember to set alph = eps = 0 in 
 % testing!
 
 % save('weights.mat', 'weights');
-% load weights;         
+ load 'weights.mat';         
 
 % Keep track of high score, minimum score and store all scores 
 top_score  = 0;

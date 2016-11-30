@@ -132,12 +132,11 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
     comple_grid = imcomplement(grid);
     
     CC = bwconncomp(comple_grid,4);
-    numPixels = cellfun(@numel,CC.PixelIdxList);
-    [biggestSize,idx] = max(numPixels);
+    [biggestSize,idx] = max(cellfun(@numel,CC.PixelIdxList));
     
     CC_copy = bwconncomp(comple_copy_grid,4);
-    numPixels_copy = cellfun(@numel,CC_copy.PixelIdxList);
-    [biggestSize_copy,idx_copy] = max(numPixels_copy);
+    numPixels = cellfun(@numel,CC_copy.PixelIdxList);
+    [biggestSize_copy,idx_copy] = max(numPixels);
     
     if(abs(biggestSize - biggestSize_copy) > 1)
         state_action_feats(3, action) = 1;
@@ -146,26 +145,22 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
     end
     
    
-    L = labelmatrix(CC);
+    L = labelmatrix(CC_copy);
     %L = bwlabel(imcomplement(grid_copy_ones),4);
-    %action_label = [];
+    action_label = [];
 
     if(grid(next_head_loc(1),next_head_loc(2)) == 1)
       state_action_feats(4, action) = 0;
     else
         Label = L(next_head_loc(1),next_head_loc(2));
-        if Label == idx
-           state_action_feats(4, action) = 1;
-        else
-            state_action_feats(4, action) = 0;
-        end
+        
         %for future_action = 1:3
          %   [future_head_loc, future_move_dir] = get_next_info(future_action, next_move_dir, next_head_loc);
           %  if(grid(future_head_loc(1),future_head_loc(2)) ~= 1)
            %     action_label = [action_lable ];
             %end
          
-    end 
+          end 
    % end
     
     
