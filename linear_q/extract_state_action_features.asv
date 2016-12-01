@@ -97,7 +97,7 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
     dist = norm([(next_head_loc(1) - apple_loc_m),(next_head_loc(2) - apple_loc_n)],1);
    
     if (dist == 0) 
-        res = 1/2;
+        res = 1;
     else
         res = dist;
     end
@@ -111,19 +111,6 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
       state_action_feats(2, action) = 1;
     else
        state_action_feats(2, action) = 0; 
-    
-   % else
-   %    future_walls = 0;
-   %     for future_action = 1:3
-   %         [future_head_loc, future_move_dir] = get_next_info(future_action, next_move_dir, next_head_loc);
-   %         future_walls = future_walls + grid(future_head_loc(1),future_head_loc(2));
-   %     end
-   %     if(future_walls > 2)
-   %         state_action_feats(2, action) = future_walls;
-   %     else
-   %         state_action_feats(2, action) = 0;
-   %     end
-        
     end
     
     
@@ -134,17 +121,33 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
     CC = bwconncomp(comple_grid,4);
     numPixels = cellfun(@numel,CC.PixelIdxList);
     [biggestSize,idx] = max(numPixels);
+    
     L = labelmatrix(CC);
-    state_action_feats(3, action) = 1/numPixels(L(next_head_loc(1),next_head_loc(2)));
+    snake_size = sum(sum(grid(2:end-1,2:end-1)>0));
+    label = L(next_head_loc(1),next_head_loc(2));
+    
+    if label ~= 0
+    
+    
+    else
+        state_action_feats(3, action) = 0; 
+    end
+    
+    
+    
+    
+    
+    
+    
+    if label ~= 0
+        state_action_feats(3, action) = 1/numPixels(label);
+    else
+        state_action_feats(3, action) = 0;    
+    end
+    
+    
 
-    
-    
-   
-   % end
-    
-    
-    %state_action_feats(2, action) = randn();
-    %state_action_feats(3, action) = randn();
+    % no touch
 end
 
 end

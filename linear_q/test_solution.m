@@ -38,7 +38,7 @@ snake_len_init = 10;
 nbr_apples = 1;
 
 % Updates per second
-updates_per_sec = 50;                  % Allowed to be changed (though your code must handle 20 updates per second at the lowest)
+updates_per_sec = 70;                  % Allowed to be changed (though your code must handle 20 updates per second at the lowest)
 pause_time      = 1 / updates_per_sec; % DO NOT CHANGE
 
 % Set visualization settings (what you as programmer will see when the agent is playing)
@@ -47,7 +47,7 @@ show_every_kth = round(1 / show_fraction); % DO NOT CHANGE
 
 % Stuff related to learning agent (YOU SHOULD EXPERIMENT A LOT WITH THESE
 % SETTINGS - SEE EXERCISE 8)
-nbr_feats          = 3;                                             % Number of state-action features per action
+nbr_feats          = 4;                                             % Number of state-action features per action
 nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
 rewards            = struct('default', 0, 'apple', 1, 'death', -1); % Experiment with different reward signals, to see which yield a good behaviour for the agent
 gamm               = 0.9;                                           % Discount factor in Q-learning

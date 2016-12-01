@@ -97,7 +97,7 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
     dist = norm([(next_head_loc(1) - apple_loc_m),(next_head_loc(2) - apple_loc_n)],1);
    
     if (dist == 0) 
-        res = 1;
+        res = 1/2;
     else
         res = dist;
     end
@@ -122,25 +122,49 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
     numPixels = cellfun(@numel,CC.PixelIdxList);
     [biggestSize,idx] = max(numPixels);
     L = labelmatrix(CC);
+    snake_size = sum(sum(grid(2:end-1,2:end-1)>0));
     
     label = L(next_head_loc(1),next_head_loc(2));
     if label ~= 0
-        state_action_feats(3, action) = 1/numPixels(label);
+        if numPixels(label) > 1.2*snake_size
+            state_action_feats(3, action) = 0;
+        else
+            state_action_feats(3, action) = 1/numPixels(label);
+        end
+        
     else
         state_action_feats(3, action) = 0;    
     end
     
+    
     %--------------------------------------------------------------------
+    grid_copy = grid;
+    if (grid(next_head_loc(1),next_head_loc(2)) ~= 1)
+        
+        grid_copy(next_head_loc(1),next_head_loc(2)) = 1;
+
+        comple_copy_grid = imcomplement(grid_copy);
+        CC_copy = bwconncomp(comple_copy_grid,4);
+        L_copy = labelmatrix(CC);
+        numPixels_copy = cellfun(@numel,CC_copy.PixelIdxList);
+        [biggestSize_copy,idx_copy] = max(numPixels_copy);
+
+        if CC_copy.NumObjects > CC.NumObjects
+            state_action_feats(4, action) = 1/biggestSize_copy;
+        elseif (CC_copy.NumObjects < CC.NumObjects)
+            state_action_feats(4, action) = 1/biggestSize;
+        else
+            state_action_feats(4, action) = 0;  
+        end
+    else
+        state_action_feats(4, action) = 0;
+    end
 
     
     
     
     
-    
-    
-    
-    
-  
+    % no touch
 end
 
 end
