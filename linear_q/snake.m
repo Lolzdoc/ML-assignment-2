@@ -47,17 +47,17 @@ show_every_kth = round(1 / show_fraction); % DO NOT CHANGE
 
 % Stuff related to learning agent (YOU SHOULD EXPERIMENT A LOT WITH THESE
 % SETTINGS - SEE EXERCISE 8)
-nbr_feats          = 4;                                             % Number of state-action features per action
-nbr_ep             = 5000;                                          % Number of episodes (full games until snake dies) to train
-rewards            = struct('default', -1, 'apple', 5, 'death', -5); % Experiment with different reward signals, to see which yield a good behaviour for the agent
-gamm               = 0.91;                                           % Discount factor in Q-learning
+nbr_feats          = 3;                                             % Number of state-action features per action
+nbr_ep             = 100;                                          % Number of episodes (full games until snake dies) to train
+rewards            = struct('default', 0, 'apple', 10, 'death', -7); % Experiment with different reward signals, to see which yield a good behaviour for the agent
+gamm               = 0.9;                                           % Discount factor in Q-learning
 alph               = 0.2;                                          % Learning rate in Q-learning
 eps                = 0.02;                                          % Random action selection probability in epsilon-greedy Q-learning (lower: increase exploitation, higher: increase exploration)
-alph_update_iter   = 10;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
-alph_update_factor = 0.5;                                           % At alpha update: new alpha = old alpha * alph_update_factor
-eps_update_iter    = 10;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
-eps_update_factor  = 0.5;                                           % At eps update: new eps = old eps * eps_update_factor
-weights            = [2;-2;-1;1];                           % I.i.d. N(0,1) initial weights
+alph_update_iter   = 7;                                             % 0: Never update alpha, Positive integer k: Update alpha every kth episode
+alph_update_factor = 0.2;                                           % At alpha update: new alpha = old alpha * alph_update_factor
+eps_update_iter    = 3;                                             % 0: Never update eps, Positive integer k: Update eps every kth episode
+eps_update_factor  = 0.03;                                           % At eps update: new eps = old eps * eps_update_factor
+weights            = [7.14;-7.48;1];                         % I.i.d. N(0,1) initial weights
 
 % Below two commands are useful when you have tranined your agent and later
 % want to test it (see also Exercise 8). Remember to set alph = eps = 0 in 

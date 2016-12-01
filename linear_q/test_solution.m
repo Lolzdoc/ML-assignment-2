@@ -38,7 +38,7 @@ snake_len_init = 10;
 nbr_apples = 1;
 
 % Updates per second
-updates_per_sec = 20;                  % Allowed to be changed (though your code must handle 20 updates per second at the lowest)
+updates_per_sec = 50;                  % Allowed to be changed (though your code must handle 20 updates per second at the lowest)
 pause_time      = 1 / updates_per_sec; % DO NOT CHANGE
 
 % Set visualization settings (what you as programmer will see when the agent is playing)

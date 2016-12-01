@@ -95,94 +95,57 @@ for action = 1 : 3 % Evaluate all the different actions (left, forward, right)
     %dist = sqrt((next_head_loc(1) - apple_loc_m)^2 + (next_head_loc(2) - apple_loc_n)^2 );
     
     dist = norm([(next_head_loc(1) - apple_loc_m),(next_head_loc(2) - apple_loc_n)],1);
-    
-    
+   
     if (dist == 0) 
-        res = 1/2;
+        res = 1;
     else
         res = dist;
     end
     state_action_feats(1, action) =  1/res;
 
     
+   %--------------------------------------------------------------------
+  
+   
     if(grid(next_head_loc(1),next_head_loc(2)) == 1)
-      state_action_feats(2, action) = 3;
+      state_action_feats(2, action) = 1;
     else
-        future_walls = 0;
-        for future_action = 1:3
-            [future_head_loc, future_move_dir] = get_next_info(future_action, next_move_dir, next_head_loc);
-            future_walls = future_walls + grid(future_head_loc(1),future_head_loc(2));
-        end
-        if(future_walls > 2)
-            state_action_feats(2, action) = future_walls;
-        else
-            state_action_feats(2, action) = 0;
-        end
-        
+       state_action_feats(2, action) = 0; 
     end
     
-    grid_copy = grid;
-    grid_copy(next_head_loc(1),next_head_loc(2)) = 1;
     
-    %grid_copy_ones = arrayfun(@(x) replace_snake(x), grid_copy);
-    grid_copy_ones = grid_copy;
-   % grid_copy_ones(grid_copy_ones~=0)=1;
+    %--------------------------------------------------------------------
     
-    comple_copy_grid = imcomplement(grid_copy_ones);
+   
     comple_grid = imcomplement(grid);
-    
     CC = bwconncomp(comple_grid,4);
     numPixels = cellfun(@numel,CC.PixelIdxList);
     [biggestSize,idx] = max(numPixels);
-    
-    CC_copy = bwconncomp(comple_copy_grid,4);
-    numPixels_copy = cellfun(@numel,CC_copy.PixelIdxList);
-    [biggestSize_copy,idx_copy] = max(numPixels_copy);
-    
-    if(abs(biggestSize - biggestSize_copy) > 1)
-        state_action_feats(3, action) = 1;
-    else
-        state_action_feats(3, action) = 0;
-    end
-    
-   
     L = labelmatrix(CC);
-    %L = bwlabel(imcomplement(grid_copy_ones),4);
-    %action_label = [];
-
-    if(grid(next_head_loc(1),next_head_loc(2)) == 1)
-      state_action_feats(4, action) = 0;
+    
+    label = L(next_head_loc(1),next_head_loc(2));
+    if label ~= 0
+        state_action_feats(3, action) = 1/numPixels(label);
     else
-        Label = L(next_head_loc(1),next_head_loc(2));
-        if Label == idx
-           state_action_feats(4, action) = 1;
-        else
-            state_action_feats(4, action) = 0;
-        end
-        %for future_action = 1:3
-         %   [future_head_loc, future_move_dir] = get_next_info(future_action, next_move_dir, next_head_loc);
-          %  if(grid(future_head_loc(1),future_head_loc(2)) ~= 1)
-           %     action_label = [action_lable ];
-            %end
-         
-    end 
-   % end
-    
-    
-    %state_action_feats(2, action) = randn();
-    %state_action_feats(3, action) = randn();
-end
-
-end
-
-
-function y = replace_snake(x)
-    y = 0;
-    if x >= 1
-        y = 1;
+        state_action_feats(3, action) = 0;    
     end
+    
+    %--------------------------------------------------------------------
 
-end 
+    
+    
+    
+    
+    
+    
+    
+    
+  
+end
+
+end
+
+
 
 function [next_head_loc, next_move_dir] = get_next_info(action, movement_dir, head_loc)
 % Function to infer next haed location and movement direction
